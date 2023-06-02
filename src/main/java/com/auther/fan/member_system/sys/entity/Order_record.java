@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
  * @author fan
  * @since 2023-06-01
  */
-public class Order implements Serializable {
+
+public class Order_record implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,7 +34,19 @@ public class Order implements Serializable {
 
     private String orderNote;
 
+
+
     private Integer number;
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    private Integer amount;
 
     private Boolean deleted;
 
@@ -128,17 +141,19 @@ public class Order implements Serializable {
     @Override
     public String toString() {
         return "Order{" +
-            "orderId = " + orderId +
-            ", memberId = " + memberId +
-            ", productId = " + productId +
-            ", placedAt = " + placedAt +
-            ", paidAt = " + paidAt +
-            ", paymentMethod = " + paymentMethod +
-            ", orderType = " + orderType +
-            ", orderSource = " + orderSource +
-            ", orderNote = " + orderNote +
-            ", number = " + number +
-            ", deleted = " + deleted +
-        "}";
+                "orderId='" + orderId + '\'' +
+                ", memberId='" + memberId + '\'' +
+                ", productId=" + productId +
+                ", placedAt=" + placedAt +
+                ", paidAt=" + paidAt +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", orderType='" + orderType + '\'' +
+                ", orderSource='" + orderSource + '\'' +
+                ", orderNote='" + orderNote + '\'' +
+                ", number=" + number +
+                ", amount=" + amount +
+                ", deleted=" + deleted +
+                '}';
     }
+
 }

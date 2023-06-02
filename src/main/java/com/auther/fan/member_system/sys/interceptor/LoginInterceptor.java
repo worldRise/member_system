@@ -12,7 +12,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        log.info("来到了拦截器");
-        log.info("拦截器检测到了有来自+"+request.getLocalName()+request.getRequestURI()+"的请求");
+        log.info("拦截器检测到了有来自+"+request.getLocalAddr()+"对"+request.getServletPath()+"地址的请求");
         return true;
     }
 

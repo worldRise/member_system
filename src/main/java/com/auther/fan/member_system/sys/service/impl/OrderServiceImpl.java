@@ -1,6 +1,6 @@
 package com.auther.fan.member_system.sys.service.impl;
 
-import com.auther.fan.member_system.sys.entity.Order;
+import com.auther.fan.member_system.sys.entity.Order_record;
 import com.auther.fan.member_system.sys.mapper.OrderMapper;
 import com.auther.fan.member_system.sys.service.IOrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2023-06-01
  */
 @Service
-public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order_record> implements IOrderService {
 
 }

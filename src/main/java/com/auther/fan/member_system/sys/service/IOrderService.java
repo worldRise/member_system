@@ -1,6 +1,6 @@
 package com.auther.fan.member_system.sys.service;
 
-import com.auther.fan.member_system.sys.entity.Order;
+import com.auther.fan.member_system.sys.entity.Order_record;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author fan
  * @since 2023-06-01
  */
-public interface IOrderService extends IService<Order> {
+public interface IOrderService extends IService<Order_record> {
 
 }

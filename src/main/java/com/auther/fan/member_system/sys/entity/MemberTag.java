@@ -26,7 +26,7 @@ public class MemberTag implements Serializable {
 
     private String tagType;
 
-    private Integer condition;
+    private Integer conditionId;
 
     private LocalDateTime lastUpdatedTime;
 
@@ -54,12 +54,12 @@ public class MemberTag implements Serializable {
         this.tagType = tagType;
     }
 
-    public Integer getCondition() {
-        return condition;
+    public Integer getConditionId() {
+        return conditionId;
     }
 
-    public void setCondition(Integer condition) {
-        this.condition = condition;
+    public void setConditionId(Integer conditionId) {
+        this.conditionId = conditionId;
     }
 
     public LocalDateTime getLastUpdatedTime() {
@@ -76,7 +76,7 @@ public class MemberTag implements Serializable {
             "tagId = " + tagId +
             ", tagName = " + tagName +
             ", tagType = " + tagType +
-            ", condition = " + condition +
+            ", conditionId = " + conditionId +
             ", lastUpdatedTime = " + lastUpdatedTime +
         "}";
     }

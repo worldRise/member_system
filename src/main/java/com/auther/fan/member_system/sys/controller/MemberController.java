@@ -3,6 +3,7 @@ package com.auther.fan.member_system.sys.controller;
 import com.auther.fan.member_system.sys.entity.Member;
 import com.auther.fan.member_system.sys.service.impl.MemberServiceImpl;
 import com.auther.fan.member_system.util.Result;
+import com.auther.fan.member_system.vo.QueryMemberVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
@@ -27,10 +28,19 @@ public class MemberController {
     @Resource
     private MemberServiceImpl memberService;
 
-    @GetMapping("/")
+    @GetMapping()
     public Result<?> ListMembers(){
         HashMap<String, Object> map = new HashMap<>();
         List<Member> data = memberService.list();
+        map.put("data",data);
+
+        return Result.success(data);
+    }
+
+    @GetMapping("/queryMember")
+    public Result<List<QueryMemberVo>> ListQueryMemberVO(){
+        HashMap<String, Object> map = new HashMap<>();
+        List<QueryMemberVo>  data= memberService.listQueryMember();
         map.put("data",data);
 
         return Result.success(data);

@@ -25,6 +25,29 @@ public class Member implements Serializable {
 
     private Integer age;
 
+    private Integer memberGrowth;
+
+
+    private Integer balance;
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    private Integer score;
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
     private String nickname;
 
     private String sourceType;
@@ -79,6 +102,13 @@ public class Member implements Serializable {
         this.age = age;
     }
 
+    public Integer getMemberGrowth() {
+        return memberGrowth;
+    }
+
+    public void setMemberGrowth(Integer memberGrowth) {
+        this.memberGrowth = memberGrowth;
+    }
     public String getNickname() {
         return nickname;
     }
@@ -138,18 +168,21 @@ public class Member implements Serializable {
     @Override
     public String toString() {
         return "Member{" +
-            "memberId = " + memberId +
-            ", name = " + name +
-            ", phone = " + phone +
-            ", gender = " + gender +
-            ", age = " + age +
-            ", nickname = " + nickname +
-            ", sourceType = " + sourceType +
-            ", paid = " + paid +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", note = " + note +
-            ", deleted = " + deleted +
-        "}";
+                "memberId='" + memberId + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", memberGrowth=" + memberGrowth +
+                ", balance=" + balance +
+                ", score=" + score +
+                ", nickname='" + nickname + '\'' +
+                ", sourceType='" + sourceType + '\'' +
+                ", paid=" + paid +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", note='" + note + '\'' +
+                ", deleted=" + deleted +
+                '}';
     }
 }

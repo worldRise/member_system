@@ -1,7 +1,10 @@
 package com.auther.fan.member_system.sys.service;
 
 import com.auther.fan.member_system.sys.entity.Member;
+import com.auther.fan.member_system.vo.QueryMemberVo;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IMemberService extends IService<Member> {
 
+    List<QueryMemberVo> listQueryMember();
 }
