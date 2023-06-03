@@ -13,6 +13,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        log.info("来到了拦截器");
         log.info("拦截器检测到了有来自+"+request.getLocalAddr()+"对"+request.getServletPath()+"地址的请求");
+        String token = request.getHeader("token");
+        if (!"allow".equals(token)){
+            return false;
+        }
         return true;
     }
 

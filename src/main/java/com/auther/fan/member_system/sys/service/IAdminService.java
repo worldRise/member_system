@@ -3,6 +3,8 @@ package com.auther.fan.member_system.sys.service;
 import com.auther.fan.member_system.sys.entity.Admin;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.HashMap;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IAdminService extends IService<Admin> {
 
+    HashMap<String, Object> login(Admin admin);
 }

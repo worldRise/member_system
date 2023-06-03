@@ -25,8 +25,37 @@ public class Member implements Serializable {
 
     private Integer age;
 
+    private Integer branch;
+
+    public Integer getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Integer branch) {
+        this.branch = branch;
+    }
+
     private Integer memberGrowth;
 
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String fullName;
+
+    public String getFull_name() {
+        return fullName;
+    }
+
+    public void setFull_name(String full_name) {
+        this.fullName = full_name;
+    }
 
     private Integer balance;
 
@@ -39,6 +68,16 @@ public class Member implements Serializable {
     }
 
     private Integer score;
+
+    private Integer orderNum;
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
 
     public Integer getBalance() {
         return balance;
@@ -173,9 +212,13 @@ public class Member implements Serializable {
                 ", phone='" + phone + '\'' +
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
+                ", branch=" + branch +
                 ", memberGrowth=" + memberGrowth +
+                ", address='" + address + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", balance=" + balance +
                 ", score=" + score +
+                ", orderNum=" + orderNum +
                 ", nickname='" + nickname + '\'' +
                 ", sourceType='" + sourceType + '\'' +
                 ", paid=" + paid +

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 /**
  * 会员查询页面返回数据
  */
@@ -12,7 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class QueryMemberVo {
+public class QueryMemberVo implements Serializable {
 
     private String memberName;
     private String memberPhone;

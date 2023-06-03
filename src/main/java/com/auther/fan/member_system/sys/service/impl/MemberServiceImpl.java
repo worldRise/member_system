@@ -10,6 +10,8 @@ import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,16 +42,34 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
      * @return
      */
     @Override
-    public List<QueryMemberVo> listQueryMember() {
+    public List<QueryMemberVo> listQueryMember(Integer branch, Integer[] orderNum, String creatTime) {
         List<QueryMemberVo> queryMemberVos = Lists.newArrayList();
 
         LambdaQueryWrapper<Member> memberLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        List<Member> memberList = this.list();
+        if (branch != null) {
+            memberLambdaQueryWrapper.eq(Member::getBranch, branch);
+        }
+        if (orderNum != null) {
+            memberLambdaQueryWrapper.between(Member::getOrderNum,orderNum[0],orderNum[1]);
+        }
+        if (creatTime != null) {
+            //把字符串转换成日期格式
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime time = LocalDateTime.parse(creatTime,formatter);
+            memberLambdaQueryWrapper.eq(Member::getCreateTime, time);
+        }
+        List<Member> memberList = this.list(memberLambdaQueryWrapper);
         memberList.forEach( member -> {
             QueryMemberVo queryMemberVo = queryMemberVoContent(member);
             queryMemberVos.add(queryMemberVo);
         });
         return queryMemberVos ;
+    }
+
+    @Override
+    public boolean updateScore(String memberId) {
+
+        return false;
     }
 
 

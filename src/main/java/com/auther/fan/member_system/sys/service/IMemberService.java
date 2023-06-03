@@ -4,6 +4,7 @@ import com.auther.fan.member_system.sys.entity.Member;
 import com.auther.fan.member_system.vo.QueryMemberVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,5 +17,7 @@ import java.util.List;
  */
 public interface IMemberService extends IService<Member> {
 
-    List<QueryMemberVo> listQueryMember();
+    List<QueryMemberVo> listQueryMember(Integer branch,Integer[] orderNum,String creatTime);
+
+    boolean updateScore(String memberId);
 }
