@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @since 2023-06-01
  */
 
-public class Order_record implements Serializable {
+public class OrderRecord implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,35 @@ public class Order_record implements Serializable {
 
     private String orderNote;
 
+    private String deliveryMethod;
 
+    private Integer shipmentStatus;
+
+    public Integer getShipmentStatus() {
+        return shipmentStatus;
+    }
+
+    public void setShipmentStatus(Integer shipmentStatus) {
+        this.shipmentStatus = shipmentStatus;
+    }
+
+    public String getDeliveryMethod() {
+        return deliveryMethod;
+    }
+
+    public void setDeliveryMethod(String deliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
+    }
+
+    private Integer deliveryId;
+
+    public Integer getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(Integer deliveryId) {
+        this.deliveryId = deliveryId;
+    }
 
     private Integer number;
 
@@ -140,7 +168,7 @@ public class Order_record implements Serializable {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "OrderRecord{" +
                 "orderId='" + orderId + '\'' +
                 ", memberId='" + memberId + '\'' +
                 ", productId=" + productId +
@@ -150,6 +178,9 @@ public class Order_record implements Serializable {
                 ", orderType='" + orderType + '\'' +
                 ", orderSource='" + orderSource + '\'' +
                 ", orderNote='" + orderNote + '\'' +
+                ", deliveryMethod='" + deliveryMethod + '\'' +
+                ", shipmentStatus=" + shipmentStatus +
+                ", deliveryId=" + deliveryId +
                 ", number=" + number +
                 ", amount=" + amount +
                 ", deleted=" + deleted +

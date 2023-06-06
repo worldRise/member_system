@@ -1,6 +1,6 @@
 package com.auther.fan.member_system.sys.service;
 
-import com.auther.fan.member_system.sys.entity.Member;
+import com.auther.fan.member_system.sys.entity.*;
 import com.auther.fan.member_system.vo.QueryMemberVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -19,5 +19,13 @@ public interface IMemberService extends IService<Member> {
 
     List<QueryMemberVo> listQueryMember(Integer branch,Integer[] orderNum,String creatTime);
 
-    boolean updateScore(String memberId);
+    boolean updateScore(Score score);
+
+    boolean updateRecord(Record record);
+
+    boolean updateMemberTag(List<CombineMemberTag> combineMemberTags);
+
+    boolean updateMember(Member member);
+
+    boolean updateMemberGrowth(Growth growth);
 }
