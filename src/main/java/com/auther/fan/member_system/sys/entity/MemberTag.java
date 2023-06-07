@@ -80,4 +80,5 @@ public class MemberTag implements Serializable {
             ", lastUpdatedTime = " + lastUpdatedTime +
         "}";
     }
+
 }

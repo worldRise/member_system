@@ -12,11 +12,11 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        log.info("拦截器检测到了有来自+"+request.getLocalAddr()+"对"+request.getServletPath()+"地址的请求");
-        String token = request.getHeader("token");
-        if (!"allow".equals(token)){
-            return false;
-        }
+//        log.info("拦截器检测到了有来自+"+request.getLocalAddr()+"对"+request.getServletPath()+"地址的请求");
+//        String token = request.getHeader("token");
+//        if (!"allow".equals(token)){
+//            return false;
+//        }
         return true;
     }
 
@@ -28,7 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        log.info("浏览器执行了",request.getServletPath()+"的请求");
+//        log.info("浏览器执行了",request.getServletPath()+"的请求");
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 }
