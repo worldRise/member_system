@@ -28,4 +28,6 @@ public interface IMemberService extends IService<Member> {
     boolean updateMember(Member member);
 
     boolean updateMemberGrowth(Growth growth);
+
+    boolean removeLogic(String memberId);
 }

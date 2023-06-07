@@ -1,12 +1,14 @@
 package com.auther.fan.member_system.sys.controller;
 
 import com.auther.fan.member_system.sys.entity.*;
+import com.auther.fan.member_system.sys.service.IMemberService;
 import com.auther.fan.member_system.sys.service.impl.MemberServiceImpl;
 import com.auther.fan.member_system.util.PhoneNumberGenerator;
 import com.auther.fan.member_system.util.QueryPageUtils;
 import com.auther.fan.member_system.util.Result;
 import com.auther.fan.member_system.vo.QueryMemberVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
@@ -28,7 +30,7 @@ import java.util.List;
 public class MemberController {
 
     @Resource
-    private MemberServiceImpl memberService;
+    private IMemberService memberService;
 
     @GetMapping()
     public Result<?> ListMembers() {
@@ -83,8 +85,18 @@ public class MemberController {
         return Result.success("添加会员成功");
     }
 
+    @DeleteMapping
+    public Result<?> DeleteMember(@RequestParam("memberId") String memberId) {
+        if (!memberService.removeLogic(memberId)) {
+            return Result.fail("删除会员失败");
+        }
+        return Result.success("删除会员成功");
+    }
+
+
     /**
      * 更新用户积分，并将积分记录添加到积分记录表中
+     *
      * @param score
      * @return
      */
@@ -98,6 +110,7 @@ public class MemberController {
 
     /**
      * 更新用户余额，并添加余额记录
+     *
      * @param record
      * @return
      */
@@ -110,8 +123,8 @@ public class MemberController {
     }
 
     @PostMapping("/growthAdd")
-    public Result<?> updateMemberGrowth(@RequestBody Growth growth){
-        if (!memberService.updateMemberGrowth(growth)){
+    public Result<?> updateMemberGrowth(@RequestBody Growth growth) {
+        if (!memberService.updateMemberGrowth(growth)) {
             return Result.fail("成长值添加失败！");
         }
         return Result.success("成长值添加成功！");
@@ -119,12 +132,13 @@ public class MemberController {
 
     /**
      * 修改标签
+     *
      * @param combineMemberTags
      * @return
      */
     @PostMapping("/updateMemberTag")
-    public Result<?> updateMemberTag(@RequestBody List<CombineMemberTag> combineMemberTags){
-        if (!memberService.updateMemberTag(combineMemberTags)){
+    public Result<?> updateMemberTag(@RequestBody List<CombineMemberTag> combineMemberTags) {
+        if (!memberService.updateMemberTag(combineMemberTags)) {
             return Result.fail("编辑标签失败！");
         }
         return Result.success("编辑标签成功！");
@@ -132,15 +146,16 @@ public class MemberController {
 
     /**
      * 更新用户信息
+     *
      * @param member
      * @return
      */
     @PutMapping
-    public Result<?> UpdateMember(@RequestBody Member member){
-        if (!memberService.updateMember(member)){
+    public Result<?> UpdateMember(@RequestBody Member member) {
+        if (!memberService.updateMember(member)) {
             return Result.fail("修改用户信息失败");
         }
-        return  Result.success("修改用户信息成功！");
+        return Result.success("修改用户信息成功！");
     }
 
 }

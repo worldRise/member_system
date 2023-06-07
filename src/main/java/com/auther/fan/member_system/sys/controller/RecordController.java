@@ -2,6 +2,7 @@ package com.auther.fan.member_system.sys.controller;
 
 import com.auther.fan.member_system.sys.entity.Record;
 import com.auther.fan.member_system.sys.entity.Score;
+import com.auther.fan.member_system.sys.service.IRecordService;
 import com.auther.fan.member_system.sys.service.impl.RecordServiceImpl;
 import com.auther.fan.member_system.sys.service.impl.ScoreServiceImpl;
 import com.auther.fan.member_system.util.QueryPageUtils;
@@ -30,7 +31,7 @@ import java.util.List;
 public class RecordController {
 
     @Resource
-    private RecordServiceImpl recordService;
+    private IRecordService recordService;
 
     /**
      * 获取用户储值记录
@@ -40,9 +41,9 @@ public class RecordController {
      * @return
      */
     @GetMapping("/getListByMemberId")
-    public Result<?> geScoreListByMemberId(@RequestParam("memberId") String memberId,
-                                           @RequestParam("pageSize") Integer pageSize,
-                                           @RequestParam("pageNum") Integer pageNum){
+    public Result<?> getListByMemberId(@RequestParam("memberId") String memberId,
+                                       @RequestParam("pageSize") Integer pageSize,
+                                       @RequestParam("pageNum") Integer pageNum){
         HashMap<String, Object> map = new HashMap<>();
         List<Record> records = recordService.getOrderListByMemberId(memberId);
         if (records == null){
@@ -53,4 +54,5 @@ public class RecordController {
         map.put("data",data.getRecords());
         return Result.success(map);
     }
+
 }

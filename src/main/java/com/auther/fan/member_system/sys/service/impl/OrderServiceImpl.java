@@ -6,7 +6,9 @@ import com.auther.fan.member_system.sys.entity.Product;
 import com.auther.fan.member_system.sys.mapper.OrderMapper;
 import com.auther.fan.member_system.sys.service.IOrderService;
 import com.auther.fan.member_system.vo.OrderRecordVO;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.Synchronized;
@@ -14,6 +16,7 @@ import org.assertj.core.util.Lists;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -44,7 +47,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderRecord> impl
     public List<OrderRecordVO> getOrderListByMemberId(String memberId) {
 
         LambdaQueryWrapper<OrderRecord> orderQuery = new LambdaQueryWrapper<>();
-        orderQuery.eq(OrderRecord::getMemberId,memberId);
+        orderQuery.eq(OrderRecord::getMemberId,memberId)
+                .eq(OrderRecord::getDeleted,0);
         List<OrderRecord> orderList = list(orderQuery);
         if (orderList.isEmpty()){
             return null;
@@ -67,6 +71,40 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderRecord> impl
                 .set(OrderRecord::getDeliveryId,orderRecord.getDeliveryId());
 
         return update(null,orderUpdate);
+    }
+
+    /**
+     * 获取订单列表
+     * @param orderRecord
+     * @return
+     */
+    @Override
+    public List<OrderRecordVO> getOrderList(OrderRecord orderRecord) {
+        LambdaQueryWrapper<OrderRecord> orderQuery = new LambdaQueryWrapper<>();
+        orderQuery.eq(StringUtils.hasLength(orderRecord.getOrderType()),OrderRecord::getOrderType,orderRecord.getOrderType())
+                .eq(orderRecord.getShipmentStatus() != null ,OrderRecord::getShipmentStatus, orderRecord.getShipmentStatus())
+                .eq(orderRecord.getPlacedAt() != null,OrderRecord::getPlacedAt,orderRecord.getPlacedAt())
+                .eq(StringUtils.hasLength(orderRecord.getDeliveryMethod()),OrderRecord::getDeliveryMethod, orderRecord.getDeliveryMethod())
+                .eq(StringUtils.hasLength(orderRecord.getPaymentMethod()),OrderRecord::getPaymentMethod, orderRecord.getPaymentMethod())
+                .eq(orderRecord.getDeliveryId() != null,OrderRecord::getDeliveryId,orderRecord.getDeliveryId())
+                .eq(StringUtils.hasLength(orderRecord.getOrderId()),OrderRecord::getOrderId, orderRecord.getOrderId())
+                .eq(OrderRecord::getDeleted,0);
+        List<OrderRecord> orderList = list(orderQuery);
+        List<OrderRecordVO> orderRecordVOS = Lists.newArrayList();
+        orderList.forEach(orderRecord1 -> {
+            OrderRecordVO orderRecordVO = orderRecordVOContent(orderRecord1);
+            orderRecordVOS.add(orderRecordVO);
+        });
+
+        return orderRecordVOS;
+    }
+
+    @Override
+    public boolean removeLogic(String orderId) {
+        LambdaUpdateWrapper<OrderRecord> orderUpdate = new LambdaUpdateWrapper<>();
+        orderUpdate.eq(OrderRecord::getOrderId,orderId)
+                .set(OrderRecord::getDeleted,1);
+        return update(orderUpdate);
     }
 
     /**

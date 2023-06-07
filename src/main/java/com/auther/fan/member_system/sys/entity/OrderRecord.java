@@ -1,5 +1,8 @@
 package com.auther.fan.member_system.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import org.apache.ibatis.annotations.Delete;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -76,7 +79,8 @@ public class OrderRecord implements Serializable {
 
     private Integer amount;
 
-    private Boolean deleted;
+
+    private Integer deleted;
 
     public String getOrderId() {
         return orderId;
@@ -158,11 +162,11 @@ public class OrderRecord implements Serializable {
         this.number = number;
     }
 
-    public Boolean getDeleted() {
+    public Integer getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(Integer deleted) {
         this.deleted = deleted;
     }
 

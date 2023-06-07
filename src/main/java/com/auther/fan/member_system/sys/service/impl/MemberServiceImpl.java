@@ -44,6 +44,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     private RecordServiceImpl recordService;
     @Resource
     private GrowthServiceImpl growthService;
+
     /**
      * 获取QueryMemberVo的值，并进行返回
      *
@@ -54,6 +55,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         List<QueryMemberVo> queryMemberVos = Lists.newArrayList();
 
         LambdaQueryWrapper<Member> memberLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        memberLambdaQueryWrapper.eq(Member::getDeleted,0);
         if (branch != null) {
             memberLambdaQueryWrapper.eq(Member::getBranch, branch);
         }
@@ -100,18 +102,19 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
     /**
      * 更新用户储值记录
+     *
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateRecord(Record record) {
-        record.setAfterBalance(record.getPreBalance()+record.getAddMoney()+record.getSendMoney());
+        record.setAfterBalance(record.getPreBalance() + record.getAddMoney() + record.getSendMoney());
         LambdaUpdateWrapper<Member> memberUpdate = new LambdaUpdateWrapper<>();
-        memberUpdate.eq(Member::getMemberId,record.getMemberId())
-                .set(Member::getBalance,record.getAfterBalance());
+        memberUpdate.eq(Member::getMemberId, record.getMemberId())
+                .set(Member::getBalance, record.getAfterBalance());
         boolean isSuccess = false;
         try {
-            isSuccess = recordService.save(record) && update(null,memberUpdate);
+            isSuccess = recordService.save(record) && update(null, memberUpdate);
         } catch (DataIntegrityViolationException e) {
             return false;
         }
@@ -120,6 +123,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
     /**
      * 修改用户标签
+     *
      * @param combineMemberTags
      * @return
      */
@@ -128,7 +132,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     public boolean updateMemberTag(List<CombineMemberTag> combineMemberTags) {
         String memberId = combineMemberTags.get(0).getMemberId();
         LambdaUpdateWrapper<CombineMemberTag> combineUpdate = new LambdaUpdateWrapper<>();
-        combineUpdate.eq(CombineMemberTag::getMemberId,memberId);
+        combineUpdate.eq(CombineMemberTag::getMemberId, memberId);
         //先删除memberId联合表中的标签值，在添加修改的标签值进入联合表
         boolean isRemove = combineMemberTagService.remove(combineUpdate);
         boolean isSave = combineMemberTagService.saveBatch(combineMemberTags);
@@ -137,6 +141,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
     /**
      * 更新用户信息
+     *
      * @param member
      * @return
      */
@@ -144,7 +149,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     public boolean updateMember(Member member) {
 
         LambdaUpdateWrapper<Member> memberUpdate = new LambdaUpdateWrapper<>();
-        memberUpdate.eq(Member::getMemberId,member.getMemberId())
+        memberUpdate.eq(Member::getMemberId, member.getMemberId())
                 .setEntity(member);
 
         return update(memberUpdate);
@@ -152,23 +157,37 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
     /**
      * 修改用户的成长值
+     *
      * @param growth
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateMemberGrowth(Growth growth) {
-        growth.setAfterGrowth(growth.getPreGrowth()+growth.getGrowth());
+        growth.setAfterGrowth(growth.getPreGrowth() + growth.getGrowth());
         LambdaUpdateWrapper<Member> memberUpdate = new LambdaUpdateWrapper<>();
-        memberUpdate.eq(Member::getMemberId,growth.getMemberId())
-                .set(Member::getBalance,growth.getAfterGrowth());
+        memberUpdate.eq(Member::getMemberId, growth.getMemberId())
+                .set(Member::getBalance, growth.getAfterGrowth());
         boolean isSuccess = false;
         try {
-            isSuccess = growthService.save(growth) && update(null,memberUpdate);
+            isSuccess = growthService.save(growth) && update(null, memberUpdate);
         } catch (DataIntegrityViolationException e) {
             return false;
         }
         return isSuccess;
+    }
+
+    /**
+     * 删除会员
+     * @param memberId
+     * @return
+     */
+    @Override
+    public boolean removeLogic(String memberId) {
+        LambdaUpdateWrapper<Member> memberUpdate = new LambdaUpdateWrapper<>();
+        memberUpdate.eq(Member::getMemberId, memberId)
+                .set(Member::getDeleted, 1);
+        return update(memberUpdate);
     }
 
 

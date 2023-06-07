@@ -19,4 +19,8 @@ public interface IOrderService extends IService<OrderRecord> {
     List<OrderRecordVO> getOrderListByMemberId(String memberId);
 
     boolean updateShipmentStatus(OrderRecord orderRecord);
+
+    List<OrderRecordVO> getOrderList(OrderRecord orderRecord);
+
+    boolean removeLogic(String orderId);
 }

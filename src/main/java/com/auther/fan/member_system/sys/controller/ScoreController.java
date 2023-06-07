@@ -32,7 +32,7 @@ public class ScoreController {
     private ScoreServiceImpl scoreService;
 
     @GetMapping("/getListByMemberId")
-    public Result<?> geScoreListByMemberId(@RequestParam("memberId") String memberId,
+    public Result<?> getListByMemberId(@RequestParam("memberId") String memberId,
                                             @RequestParam("pageSize") Integer pageSize,
                                             @RequestParam("pageNum") Integer pageNum){
         HashMap<String, Object> map = new HashMap<>();

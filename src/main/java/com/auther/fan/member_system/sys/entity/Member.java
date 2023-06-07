@@ -99,7 +99,7 @@ public class Member implements Serializable {
 
     private String note;
 
-    private Boolean deleted;
+    private Integer deleted;
 
     public String getMemberId() {
         return memberId;
@@ -196,11 +196,11 @@ public class Member implements Serializable {
         this.note = note;
     }
 
-    public Boolean getDeleted() {
+    public Integer getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(Integer deleted) {
         this.deleted = deleted;
     }
 
